@@ -1,0 +1,15 @@
+.dashboard-main-div{
+    display: flex;
+    flex-direction: row;
+
+}
+
+.sidebar {
+  width: 30%;
+}
+.home {
+  width: 55%;
+}
+.player {
+  width: 20%;
+}
