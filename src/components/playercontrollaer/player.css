@@ -1,8 +1,139 @@
-.player-main-div {
+/* .player-main-div {
   background: linear-gradient(to bottom, #260909, #0d0c0c);
-  width: 100%;
+  width: 20%;
   display: flex;
   flex-direction: column-reverse;
   height: 100vh;
- align-items: center;
+  align-items: center;
+  padding: 20px;
+  position: fixed;
+  right: 0;
+}
+
+.card-heading {
+  font-size: 14px;
+  text-align: center;
+  line-height: 21px;
+  font-weight: 600;
+  font-family: Poppins;
+  margin: 10px 0px;
+}
+
+.card-text2 {
+  font-size: 18px;
+  text-align: center;
+  line-height: 27px;
+  font-weight: 600;
+  font-family: Poppins;
+}
+
+.card-text3 {
+  font-family: Poppins;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 19.5px;
+  text-align: center;
+}
+
+
+@media (max-width: 1200px) {
+  .player-main-div {
+    width: 24.5%;
+  }
+} */
+
+
+.player-main-div {
+  background: linear-gradient(to bottom, #260909, #0d0c0c);
+  width: 20%;
+  display: flex;
+  flex-direction: column-reverse;
+  height: 100vh;
+  align-items: center;
+  padding: 20px;
+  position: fixed;
+  right: 0;
+}
+
+.card-heading {
+  font-size: 14px;
+  text-align: center;
+  line-height: 21px;
+  font-weight: 600;
+  font-family: Poppins;
+  margin: 10px 0px;
+}
+
+.card-text2 {
+  font-size: 18px;
+  text-align: center;
+  line-height: 27px;
+  font-weight: 600;
+  font-family: Poppins;
+}
+
+.card-text3 {
+  font-family: Poppins;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 19.5px;
+  text-align: center;
+}
+
+@media (max-width: 1200px) {
+  .player-main-div {
+    width: 24.5%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .player-main-div {
+    width: 100%;
+    height: 100px;
+    bottom: 0;
+    top: auto;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .player-main-div .MuiCard-root {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .card-heading,
+  .card-text2,
+  .card-text3 {
+    display: none;
+  }
+
+  .player-main-div .MuiCard-root .MuiCardMedia-root {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }
+
+  .player-main-div .MuiCard-root .MuiCardContent-root {
+    width: calc(100% - 80px);
+    padding: 0;
+  }
+
+  .player-main-div .MuiCard-root .MuiCardContent-root .MuiBox-root {
+    width: 100%;
+  }
+
+  .player-main-div .MuiCard-root .MuiCardContent-root .MuiSlider-root {
+    width: 100%;
+  }
+
+  .player-main-div .MuiCard-root .MuiCardContent-root .MuiIconButton-root {
+    padding: 5px;
+  }
 }

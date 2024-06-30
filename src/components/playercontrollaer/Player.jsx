@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./player.css";
 import {
   Card,
@@ -8,15 +8,138 @@ import {
   Slider,
   IconButton,
   Box,
+  Drawer,
+  List,
 } from "@mui/material";
 import PlayArrow from "./assets/play.svg";
 import SkipPrevious from "./assets/prev.svg";
 import SkipNext from "./assets/next.svg";
 import Shuffle from "./assets/Random.svg";
+import ShuffleSelect from "./assets/Randomselect.svg";
 import Repeat from "./assets/Repeat.svg";
-import Michel from "./assets/Pic.png";
+import RepeatSelect from "./assets/Repeatselect.svg";
+import PauseIcon from "./assets/pause.svg";
+import { Howl } from "howler";
+import { useUser } from "../../context/UserContextProvider";
 
 const Player = () => {
+  const { filteredSongs, setSelectSong, playInList, playInListFlags } =
+    useUser();
+
+  let songslist = filteredSongs;
+
+  const [currentSong, setCurrentSong] = useState(songslist[0]);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const soundRef = useRef(null);
+  const [isShuffle, setIsShuffle] = useState(false);
+  const [isRepeat, setIsRepeat] = useState(false);
+
+  const handleSongEnd = () => {
+    if (isRepeat) {
+      soundRef.current.play();
+    } else {
+      handleSkipNext();
+    }
+  };
+
+  useEffect(() => {
+    if (playInList) {
+      if (currentSong === playInList && isPlaying) {
+        setIsPlaying(false);
+      } else {
+        setIsPlaying(true);
+        setCurrentSong(playInList);
+        setSelectSong(playInList);
+      }
+    }
+  }, [playInList, playInListFlags]);
+
+  useEffect(() => {
+    if (soundRef.current) {
+      soundRef.current.unload();
+    }
+    soundRef.current = new Howl({
+      src: [currentSong.song],
+      onend: handleSongEnd,
+      onload: () => setDuration(soundRef.current.duration()),
+    });
+    if (isPlaying) {
+      soundRef.current.play();
+    }
+    return () => {
+      if (soundRef.current) {
+        soundRef.current.unload();
+      }
+    };
+  }, [currentSong]);
+
+  useEffect(() => {
+    if (isPlaying) {
+      soundRef.current.play();
+    } else {
+      soundRef.current.pause();
+    }
+  }, [isPlaying]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (soundRef.current && isPlaying) {
+        setProgress(soundRef.current.seek());
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isPlaying]);
+
+  const handlePlayPause = () => {
+    setIsPlaying(!isPlaying);
+    setSelectSong(currentSong);
+  };
+
+  const handleSkipPrevious = () => {
+    const currentIndex = songslist.findIndex(
+      (song) => song.id === currentSong.id
+    );
+    const prevIndex = (currentIndex - 1 + songslist.length) % songslist.length;
+    setCurrentSong(songslist[prevIndex]);
+    setSelectSong(songslist[prevIndex]);
+    setProgress(0);
+  };
+
+  const handleSkipNext = () => {
+    console.log(songslist, "handleSkipNext");
+    let nextIndex;
+    const currentIndex = songslist.findIndex(
+      (song) => song.id === currentSong.id
+    );
+    if (isShuffle) {
+      nextIndex = Math.floor(Math.random() * songslist.length);
+    } else {
+      nextIndex = (currentIndex + 1) % songslist.length;
+    }
+    setCurrentSong(songslist[nextIndex]);
+    setSelectSong(songslist[nextIndex]);
+    setProgress(0);
+  };
+
+  const handleSliderChange = (event, newValue) => {
+    setProgress(newValue);
+    if (soundRef.current) {
+      soundRef.current.seek(newValue);
+    }
+  };
+
+  const toggleShuffle = () => {
+    setIsShuffle(!isShuffle);
+    setIsRepeat(false);
+  };
+
+  const toggleRepeat = () => {
+    setIsRepeat(!isRepeat);
+    setIsShuffle(false);
+  };
   return (
     <div className="player-main-div">
       <Card
@@ -28,51 +151,83 @@ const Player = () => {
           padding: "20px",
         }}
       >
-        <Typography variant="h6" component="div">
-          Now Playing
-        </Typography>
+        <div className="card-heading">Now Playing</div>
         <CardMedia
           component="img"
           height="140"
-          image={Michel}
-          alt="Michael Jackson"
+          image={currentSong.image}
+          alt={currentSong.title}
+          sx={{ borderRadius: "10px" }}
         />
         <CardContent>
-          <Typography variant="h5" component="div">
-            Beat It
-          </Typography>
-          <Typography variant="subtitle1" color="text.secondary">
-            Michael Jackson
-          </Typography>
+          <div className="card-text2">{currentSong.title}</div>
+          <div className="card-text3">Michael Jackson</div>
           <Box display="flex" alignItems="center">
-            <Typography variant="body2" sx={{ mr: 2 }}>
-              2:15
+            <Typography
+              variant="body2"
+              sx={{
+                mr: 2,
+                fontSize: "13px",
+                fontFamily: "Poppins",
+                fontWeight: 500,
+              }}
+            >
+              {Math.floor(progress / 60)}:
+              {Math.floor(progress % 60)
+                .toString()
+                .padStart(2, "0")}
             </Typography>
             <Slider
               aria-label="time-indicator"
-              value={30}
-              max={100}
+              value={progress}
+              min={0}
+              max={duration}
+              onChange={handleSliderChange}
               sx={{ color: "white" }}
             />
-            <Typography variant="body2" sx={{ ml: 2 }}>
-              4:18
+            <Typography
+              variant="body2"
+              sx={{
+                ml: 2,
+                fontSize: "13px",
+                fontFamily: "Poppins",
+                fontWeight: 500,
+              }}
+            >
+              {Math.floor(duration / 60)}:
+              {Math.floor(duration % 60)
+                .toString()
+                .padStart(2, "0")}
             </Typography>
           </Box>
           <Box display="flex" justifyContent="space-between">
-            <IconButton sx={{ color: "white" }}>
-              <img src={Repeat} alt="" />
+            <IconButton
+              sx={{ color: isRepeat ? "yellow" : "white" }}
+              onClick={toggleRepeat}
+            >
+              <img src={isRepeat ? RepeatSelect : Repeat} alt="Repeat" />
             </IconButton>
-            <IconButton sx={{ color: "white" }}>
-              <img src={SkipPrevious} alt="" />
+            <IconButton sx={{ color: "white" }} onClick={handleSkipPrevious}>
+              <img src={SkipPrevious} alt="Previous" />
             </IconButton>
-            <IconButton sx={{ color: "white", fontSize: "large" }}>
-              <img src={PlayArrow} alt="" />
+            <IconButton
+              sx={{ color: "white", fontSize: "large" }}
+              onClick={handlePlayPause}
+            >
+              {isPlaying ? (
+                <img src={PauseIcon} alt="pause" />
+              ) : (
+                <img src={PlayArrow} alt="Play" />
+              )}
             </IconButton>
-            <IconButton sx={{ color: "white" }}>
-              <img src={SkipNext} alt="" />
+            <IconButton sx={{ color: "white" }} onClick={handleSkipNext}>
+              <img src={SkipNext} alt="Next" />
             </IconButton>
-            <IconButton sx={{ color: "white" }}>
-              <img src={Shuffle} alt="" />
+            <IconButton
+              sx={{ color: isShuffle ? "yellow" : "white" }}
+              onClick={toggleShuffle}
+            >
+              <img src={isShuffle ? ShuffleSelect : Shuffle} alt="Shuffle" />
             </IconButton>
           </Box>
         </CardContent>

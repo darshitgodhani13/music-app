@@ -1,8 +1,13 @@
-import Song1Icon from "./assets/1 (1).png";
-import Song2Icon from "./assets/2 (1).png";
-import Song3Icon from "./assets/3 (1).png";
-import Song4Icon from "./assets/4 (1).png";
-import Song5Icon from "./assets/5 (1).png";
+import Song1Icon from "./assets/images/1 (1).png";
+import Song2Icon from "./assets/images/2 (1).png";
+import Song3Icon from "./assets/images/3 (1).png";
+import Song4Icon from "./assets/images/4 (1).png";
+import Song5Icon from "./assets/images/5 (1).png";
+import Song1 from "./assets/music/Billie Jean.mp3";
+import Song2 from "./assets/music/Beat It.mp3";
+import Song3 from "./assets/music/Smooth Criminal.mp3";
+import Song4 from "./assets/music/Don’t Stop 'Til You.mp3";
+import Song5 from "./assets/music/Rock With.mp3";
 
 export const songslist = [
   {
@@ -13,6 +18,7 @@ export const songslist = [
     album: "Thriller 25 Sup...",
     highlighted: false,
     image: Song1Icon,
+    song:Song1,
   },
   {
     id: 2,
@@ -22,6 +28,7 @@ export const songslist = [
     album: "Thriller 25 Sup...",
     highlighted: true,
     image: Song2Icon,
+    song:Song2,
   },
   {
     id: 3,
@@ -31,6 +38,7 @@ export const songslist = [
     album: "Thriller 25 Sup...",
     highlighted: false,
     image: Song3Icon,
+    song:Song3,
   },
   {
     id: 4,
@@ -40,6 +48,7 @@ export const songslist = [
     album: "Bad 25th Anni...",
     highlighted: false,
     image: Song4Icon,
+    song:Song4,
   },
   {
     id: 5,
@@ -49,5 +58,6 @@ export const songslist = [
     album: "Off The Wall",
     highlighted: false,
     image: Song5Icon,
+    song:Song5, 
   },
 ];

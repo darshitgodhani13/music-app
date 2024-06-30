@@ -17,3 +17,28 @@
   width: 20%;
   box-sizing: border-box;
 }
+
+
+@media (max-width: 1200px) {
+  .sidebar {
+    width: 5.5%;
+  }
+  .home {
+    width: 70%;
+  }
+  .player {
+    width: 24.5%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .sidebar {
+    width: 5.5%;
+  }
+  .home {
+    width: 94.5%;
+  }
+  .player {
+    width: 0%;
+  }
+}

@@ -19,13 +19,11 @@
   import LogoutLogo from "./assets/Log Out.svg";
 
   const Sidebar = () => {
-    const isLargeScreen = useMediaQuery("(min-width:200px)");
+    const isLargeScreen = useMediaQuery("(min-width:1200px)");
 
     return (
-      <div className="mammamama">
         <Drawer
           variant="permanent"
-          // className={`sidebar ${isLargeScreen ? "large" : "small"}`}
           classes={{ paper: `sidebar ${isLargeScreen ? "large" : "small"}` }}
         >
           <List>
@@ -90,7 +88,6 @@
             </ListItem>
           </List>
         </Drawer>
-      </div>
     );
   };
 
