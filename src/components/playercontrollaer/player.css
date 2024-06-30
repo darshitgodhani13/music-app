@@ -1,0 +1,8 @@
+.player-main-div {
+  background: linear-gradient(to bottom, #260909, #0d0c0c);
+  width: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  height: 100vh;
+ align-items: center;
+}

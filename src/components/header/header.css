@@ -1,55 +1,55 @@
+.custom-header-div {
+  padding: 10px 40px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex: 1 1 auto;
+}
 
-  
-  .custom-header-div {
-    padding: 10px 40px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-  }
+.custom-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+}
 
-  .custom-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 50%;
-  }
-  
-  .header-list {
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 27px;
-  }
-  
-  .search-input-field {
-    width: 100%;
-    height: 54px;
-    border-radius: 50px;
-    background: #2C0000;
-    border: none;
-    padding-left: 20px;
-    color: #fff;
-    font-weight: 500;
-    font-size: 18px;
-  }
-  
-  .search-input-main {
-    flex-grow: 1;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center; /* Ensure the input and icon are aligned */
-  position: relative; /* Position relative for absolute positioning of icon */
-  }
-  
-  .search-list-item{
-    width: 50%;
-  }
+.header-list {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 27px;
+  color: #f6f6f6;
+}
 
-  .search-icon {
-    position: absolute;
-    right: 35px; /* Adjust the position as needed */
-    height: 24px; /* Adjust the size as needed */
-    width: 24px; /* Adjust the size as needed */
-    cursor: pointer; /* Optional: makes the image look clickable */
-  }
+.search-input-field {
+  width: 100%;
+  height: 54px;
+  border-radius: 50px;
+  background: #2c0000;
+  border: none;
+  padding-left: 20px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.search-input-main {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+}
+
+.search-list-item {
+  width: 50%;
+}
+
+.search-icon {
+  position: absolute;
+  right: 35px;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+}

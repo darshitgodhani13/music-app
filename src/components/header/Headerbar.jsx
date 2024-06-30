@@ -1,8 +1,15 @@
 import { Box, List, ListItem } from "@mui/material";
 import "./header.css";
 import SearchIcon from "./Vector (4).svg";
+import { useUser } from "../../context/UserContextProvider";
 
 const Headerbar = () => {
+  const { setSearch } = useUser();
+
+  const onHandleChange = (e) => {
+    setSearch(e.target.value);
+  };
+
   return (
     <Box className="custom-header-div">
       <List className="custom-header">
@@ -17,9 +24,10 @@ const Headerbar = () => {
             type="text"
             placeholder="Search"
             className="search-input-field"
+            onChange={onHandleChange}
           />
           <img
-          src={SearchIcon}
+            src={SearchIcon}
             // src="your-image-url.png"
             alt="Search Icon"
             className="search-icon"
